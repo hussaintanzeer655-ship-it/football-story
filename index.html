@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Full Time – Football &amp; World Cup Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--pitch:#0c2f25;--deep:#071c16;--chalk:#eef3ec;--mute:#a9c2b4;--gold:#e8b53c;--card:#12392d;--line:#25594a;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;background:linear-gradient(var(--pitch),var(--deep) 1100px) no-repeat var(--deep);color:var(--chalk);font:400 17px/1.6 "Work Sans",system-ui,sans-serif}
+h1,h2,h3{font-family:Anton,Impact,"Arial Narrow",sans-serif;font-weight:400;letter-spacing:.01em;margin:0}
+a{color:inherit}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;display:flex;gap:22px;align-items:center;padding:14px 5vw;background:rgba(7,28,22,.88);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav b{font-family:Anton,Impact,sans-serif;font-size:22px;font-weight:400;margin-right:auto}
+nav a{text-decoration:none;color:var(--mute);font-weight:500;font-size:15px}
+nav a:hover,nav a:focus-visible{color:var(--gold);outline:none}
+.hero{position:relative;min-height:88vh;display:grid;place-items:center;text-align:center;padding:90px 5vw;overflow:hidden;z-index:1}
+.bg{position:absolute;inset:-20%;background:
+radial-gradient(circle at 20% 30%,rgba(232,181,60,.22),transparent 38%),
+radial-gradient(circle at 80% 70%,rgba(60,170,120,.28),transparent 42%);animation:glow 14s ease-in-out infinite alternate}
+.ring{position:absolute;left:50%;top:50%;width:min(70vw,520px);aspect-ratio:1;border:2px solid rgba(238,243,236,.18);border-radius:50%;transform:translate(-50%,-50%);animation:pulse 6s ease-in-out infinite}
+.ball{position:absolute;font-size:44px;left:8%;top:72%;animation:bounce 3.2s ease-in-out infinite}
+@keyframes glow{to{transform:scale(1.12) translate(2%,-2%)}}
+.fl{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.fl i{position:absolute;bottom:-160px;border-radius:50%;background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.26),rgba(232,181,60,.10) 55%,transparent 72%);border:1px solid rgba(238,243,236,.15);animation:fly linear infinite}
+@keyframes fly{from{transform:translate3d(0,0,0) rotate(0)}to{transform:translate3d(var(--dx),-130vh,0) rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.fl i{animation:none;bottom:20%}}
+@keyframes pulse{50%{transform:translate(-50%,-50%) scale(1.12);border-color:rgba(232,181,60,.4)}}
+@keyframes bounce{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-70px) rotate(180deg)}}
+.hero-in{position:relative;max-width:900px}
+.hero h1{font-size:clamp(46px,10vw,118px);line-height:1}
+.words{display:block;height:1.1em;overflow:hidden;color:var(--gold);margin-top:6px}
+.words span{display:block;transition:transform .6s cubic-bezier(.7,0,.2,1),opacity .6s}
+.words span.out{transform:translateY(-100%);opacity:0}
+.words span.pre{transform:translateY(100%);opacity:0;transition:none}
+.hero p{color:var(--mute);max-width:560px;margin:22px auto 30px}
+.btn{display:inline-block;padding:13px 26px;border-radius:6px;background:var(--gold);color:#1a1405;font-weight:600;text-decoration:none;border:0;font:600 16px "Work Sans",sans-serif;cursor:pointer;transition:transform .2s}
+.btn:hover,.btn:focus-visible{transform:translateY(-3px);outline:2px solid var(--chalk)}
+.btn.ghost{background:transparent;color:var(--chalk);border:1px solid var(--line);margin-left:8px}
+section{position:relative;z-index:1;padding:80px 5vw;max-width:1150px;margin:0 auto}
+h2{font-size:clamp(34px,5vw,56px);margin-bottom:10px}
+.lead{color:var(--mute);max-width:620px;margin:0 0 34px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:22px}
+.card h3{font-size:26px}
+.card .role{color:var(--gold);font-weight:600;font-size:14px;margin:2px 0 10px}
+.card p{margin:0;color:var(--mute);font-size:15.5px}
+.lockwrap{position:relative}
+.locked .grid{filter:blur(9px);pointer-events:none;user-select:none}
+.gate{display:none;position:absolute;inset:0;place-items:center;z-index:3}
+.locked .gate{display:grid}
+.gate-box{background:var(--deep);border:1px solid var(--gold);border-radius:12px;padding:28px;max-width:420px;text-align:center}
+.gate-box h3{font-size:30px;margin-bottom:8px}
+.gate-box p{color:var(--mute);margin:0 0 16px;font-size:15.5px}
+.gate-box input{width:100%;padding:12px;border-radius:6px;border:1px solid var(--line);background:var(--pitch);color:var(--chalk);font:500 16px "Work Sans",sans-serif;margin:12px 0 10px}
+.err{color:#ff8a7a;font-size:14px;min-height:20px;margin:0}
+.stat{display:flex;gap:18px;margin-top:14px}
+.stat div{flex:1;border-top:2px solid var(--gold);padding-top:6px}
+.stat b{font-family:Anton,Impact,sans-serif;font-weight:400;font-size:34px;display:block;line-height:1.1}
+.stat small{color:var(--mute);font-size:13px}
+.match{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 22px;border:1px solid var(--line);border-radius:10px;background:var(--card);margin-bottom:12px;flex-wrap:wrap}
+.match strong{font-family:Anton,Impact,sans-serif;font-weight:400;font-size:24px}
+.match span{color:var(--mute);font-size:15px}
+.pill{background:var(--gold);color:#1a1405;border-radius:99px;padding:3px 12px;font-size:13px;font-weight:600}
+.note{color:var(--mute);font-size:14px;margin-top:14px}
+footer{position:relative;z-index:1;border-top:1px solid var(--line);padding:34px 5vw;text-align:center;color:var(--mute);font-size:14px}
+button.card{text-align:left;color:inherit;font:inherit;cursor:pointer;width:100%;transition:transform .2s,border-color .2s}
+button.card:hover,button.card:focus-visible{transform:translateY(-4px);border-color:var(--gold);outline:none}
+dialog{background:var(--deep);color:var(--chalk);border:1px solid var(--gold);border-radius:12px;padding:0;width:min(640px,92vw);max-height:86vh}
+dialog::backdrop{background:rgba(0,0,0,.72)}
+.dh{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:22px 24px 14px;position:sticky;top:0;background:var(--deep);z-index:1}
+.dh h3{font-size:36px}
+.x{background:none;border:1px solid var(--line);color:var(--chalk);border-radius:6px;width:40px;height:40px;font-size:22px;cursor:pointer}
+.x:hover,.x:focus-visible{border-color:var(--gold);outline:none}
+.tl{list-style:none;margin:0;padding:8px 24px 26px 30px}
+.tl li{position:relative;padding:0 0 20px 24px;border-left:2px solid var(--line)}
+.tl li::before{content:"";position:absolute;left:-7px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--gold)}
+.tl b{font-family:Anton,Impact,sans-serif;font-weight:400;font-size:22px;color:var(--gold);display:block;line-height:1.2}
+.tl span{color:var(--chalk);font-size:16px}
+dialog[open] .tl li{animation:rise .5s both;animation-delay:calc(var(--i)*.09s)}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}}
+@media(prefers-reduced-motion:reduce){dialog[open] .tl li{animation:none}}
+.fh{font-size:28px;margin:34px 0 14px}
+.fh:first-child{margin-top:0}
+#pgrid,#countries{display:block}
+.match.row{cursor:pointer;transition:border-color .2s,transform .2s}
+.match.row:hover,.match.row:focus-visible{border-color:var(--gold);transform:translateX(4px);outline:none}
+.go{background:var(--gold);color:#1a1405!important;padding:9px 18px;border-radius:6px;font-weight:600}
+h2{position:relative;padding-bottom:16px;margin-bottom:28px}
+h2::after{content:"";position:absolute;left:0;bottom:0;width:64px;height:4px;background:var(--gold);border-radius:2px}
+.hero h1{text-shadow:0 6px 30px rgba(0,0,0,.45)}
+nav a.cta{background:var(--gold);color:#1a1405;padding:8px 18px;border-radius:99px;font-weight:600}
+nav a.cta:hover,nav a.cta:focus-visible{color:#1a1405;box-shadow:0 0 0 3px rgba(232,181,60,.35)}
+.av{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--gold);color:#1a1405;font:400 17px Anton,Impact,sans-serif;font-style:normal;margin-right:14px;vertical-align:middle}
+.av.sm{font-size:14px}
+.match em{font-style:normal}
+.vs{text-decoration:none;font:600 13px "Work Sans",sans-serif;color:var(--gold);border:1px solid var(--gold);border-radius:99px;padding:2px 9px;margin:0 8px;vertical-align:middle}
+footer a{margin:0 12px;color:var(--mute);text-decoration:none}
+footer a:hover,footer a:focus-visible{color:var(--gold)}
+@media(max-width:640px){nav a.cta{display:inline-block}}
+.nums{display:flex;gap:22px;flex-wrap:wrap}
+.nums b{font-family:Anton,Impact,sans-serif;font-weight:400;font-size:24px;color:var(--gold);margin-right:5px}
+.nums small{font-size:13px}
+.match{border-radius:999px;padding:18px 34px}
+@media(max-width:640px){.match{border-radius:34px;justify-content:center;text-align:center}}
+.match a.watch{background:var(--gold);color:#1a1405;padding:9px 18px;border-radius:6px;font-weight:600;font-size:15px;text-decoration:none;transition:transform .2s}
+.match a.watch:hover,.match a.watch:focus-visible{transform:translateY(-2px);outline:2px solid var(--chalk)}
+@media(max-width:640px){nav a{display:none}.btn.ghost{margin:10px 0 0}}
+@media(prefers-reduced-motion:reduce){.bg,.ring,.ball{animation:none}.words span{transition:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="fl" id="fl" aria-hidden="true"></div>
+<nav><b>FULL TIME</b><a href="#players">Players</a><a href="#worldcup">World Cup</a><a href="#matches">Matches</a><a class="cta" href="#unlock">Unlock for $2</a></nav>
+
+<header class="hero">
+  <div class="bg"></div><div class="ring"></div><div class="ball" aria-hidden="true">⚽</div>
+  <div class="hero-in">
+    <h1>Football is<span class="words" id="words" aria-live="off"><span>Glory</span></span></h1>
+    <a class="btn" href="#worldcup">Explore World Cups</a><a class="btn ghost" href="#matches">See matches</a>
+  </div>
+</header>
+
+<section id="players">
+  <h2>Players</h2>
+  <div class="grid" id="pgrid"></div>
+  <dialog id="pdlg" aria-labelledby="pname"><div class="dh"><div><h3 id="pname"></h3><div class="role" id="prole"></div></div><button class="x" id="pclose" type="button" aria-label="Close">×</button></div><ol class="tl" id="ptl"></ol></dialog>
+</section>
+
+<section id="worldcup">
+  <h2>World Cup by country</h2>
+  
+  <div class="lockwrap" id="lockwrap">
+    <div class="grid" id="countries"></div>
+    <div class="gate" id="unlock">
+      <div class="gate-box">
+        <h3>Unlock for $2</h3>
+        
+        <a class="btn" id="wa" href="https://wa.me/171750475568?text=Hi%2C%20I%20want%20to%20unlock%20the%20World%20Cup%20pages%20%28%242%29" target="_blank" rel="noopener">Pay on WhatsApp</a>
+        <input id="code" type="text" placeholder="Enter access code" aria-label="Access code" autocomplete="off">
+        <button class="btn" id="go" type="button">Unlock</button>
+        <p class="err" id="err" role="alert"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="matches">
+  <h2>Matches</h2>
+  <div id="fixtures"></div>
+  
+</section>
+
+<footer>© 2026 Full Time<br><a href="#players">Players</a><a href="#worldcup">World Cup</a><a href="#matches">Matches</a></footer>
+
+<script>
+// ---- Edit these ----
+var ACCESS_CODE = "123789";
+var MATCHES = [
+  {home:"Brazil", away:"Argentina", date:"Sat 24 Oct 2026", time:"20:00", venue:"Maracanã, Rio de Janeiro"},
+  {home:"France", away:"Germany", date:"Sun 25 Oct 2026", time:"19:30", venue:"Stade de France, Paris"},
+  {home:"England", away:"Spain", date:"Wed 28 Oct 2026", time:"21:00", venue:"Wembley, London"}
+];
+// Past matches. Add  link:"https://..."  to any match to use your own video link.
+var PAST = [
+  {home:"Argentina", away:"France", date:"18 Dec 2022", time:"World Cup final", venue:"Lusail Stadium, Qatar"},
+  {home:"France", away:"Croatia", date:"15 Jul 2018", time:"World Cup final", venue:"Luzhniki Stadium, Moscow"},
+  {home:"Germany", away:"Argentina", date:"13 Jul 2014", time:"World Cup final", venue:"Maracanã, Rio de Janeiro"}
+];
+var COUNTRIES = [
+  {n:"Brazil", w:5, r:2, a:22, y:"1958, 1962, 1970, 1994, 2002", s:"The only team at every World Cup. Pelé, Ronaldo and Romário all won it for them."},
+  {n:"Germany", w:4, r:4, a:20, y:"1954, 1974, 1990, 2014", s:"Famous for consistency: they reach the later rounds almost every time."},
+  {n:"Italy", w:4, r:2, a:18, y:"1934, 1938, 1982, 2006", s:"Built on defending. Missed the last two tournaments they tried to reach."},
+  {n:"Argentina", w:3, r:3, a:18, y:"1978, 1986, 2022", s:"Champions in 2022 with Messi, after Maradona’s win in 1986."},
+  {n:"France", w:2, r:2, a:16, y:"1998, 2018", s:"Lost the 2022 final on penalties after Mbappé’s hat-trick."},
+  {n:"Uruguay", w:2, r:0, a:14, y:"1930, 1950", s:"Won the first World Cup at home and beat Brazil in the 1950 decider."},
+  {n:"England", w:1, r:0, a:16, y:"1966", s:"Won at Wembley in 1966. Semi-finalists in 1990 and 2018."},
+  {n:"Spain", w:1, r:0, a:16, y:"2010", s:"Won in 2010 with short passing, led by Iniesta and Xavi."}
+];
+// ---- Flying circles and ovals ----
+(function(){var f=document.getElementById("fl");
+  for(var k=0;k<18;k++){var e=document.createElement("i"),w=30+Math.random()*90,h=w*(0.6+Math.random()*0.5);
+    e.style.cssText="left:"+(Math.random()*100)+"%;width:"+w+"px;height:"+h+"px;--dx:"+(Math.random()*160-80)+"px;animation-duration:"+(16+Math.random()*18)+"s;animation-delay:-"+(Math.random()*30)+"s";
+    f.appendChild(e);}
+})();
+// ---- Rotating words ----
+var list=["Glory","Passion","Legends","Skill","Teamwork","The World Cup"],i=0,box=document.getElementById("words");
+setInterval(function(){
+  var old=box.firstElementChild;i=(i+1)%list.length;
+  var nx=document.createElement("span");nx.textContent=list[i];nx.className="pre";box.appendChild(nx);
+  void nx.offsetWidth;old.className="out";nx.className="";
+  setTimeout(function(){old.remove()},650);
+},2200);
+// ---- Countries ----
+var cbox=document.getElementById("countries");
+var CODES={Brazil:"BRA",Germany:"GER",Italy:"ITA",Argentina:"ARG",France:"FRA",Uruguay:"URU",England:"ENG",Spain:"ESP"};
+var cg1=grp(cbox,"Three or more titles"),cg2=grp(cbox,"One or two titles");
+COUNTRIES.forEach(function(c){
+  var d=document.createElement("div");d.className="match";
+  d.innerHTML="<strong><i class='av sm'>"+(CODES[c.n]||"")+"</i>"+c.n+"</strong><span>Won in "+c.y+"</span><span class='nums'><span><b>"+c.w+"</b><small>titles</small></span><span><b>"+c.r+"</b><small>finals lost</small></span><span><b>"+c.a+"</b><small>appearances</small></span></span>";
+  (c.w>=3?cg1:cg2).appendChild(d);
+});
+// ---- Fixtures ----
+var fx=document.getElementById("fixtures");
+function drawMatches(list,title,past){
+  var h=document.createElement("h3");h.className="fh";h.textContent=title;fx.appendChild(h);
+  list.forEach(function(m){
+    var q=m.home+" vs "+m.away+(past?" full match highlights":" live");
+    var url=m.link||"https://www.youtube.com/results?search_query="+encodeURIComponent(q);
+    var d=document.createElement("div");d.className="match";
+    d.innerHTML="<strong>"+m.home+" <u class='vs'>VS</u> "+m.away+"</strong><span>"+m.date+(past?" · ":" at ")+m.time+" · "+m.venue+"</span>"+(past?"":"<span class='pill'>Sample</span>")+"<a class='watch' target='_blank' rel='noopener' href='"+url+"'>"+(past?"Watch":"Where to watch")+"</a>";
+    fx.appendChild(d);
+  });
+}
+drawMatches(MATCHES,"Upcoming",false);
+drawMatches(PAST,"Past matches",true);
+// ---- Players ----
+var PLAYERS = [
+ {n:"Lionel Messi", r:"Argentina · Forward", t:[
+  ["1987","Born in Rosario, Argentina. Starts playing in the youth teams of Newell’s Old Boys."],
+  ["2000","Moves to Spain at 13 to join Barcelona’s youth academy."],
+  ["2004","Plays his first game for the Barcelona senior team."],
+  ["2005–2008","Wins the Under-20 World Cup and Olympic gold with Argentina."],
+  ["2009–2023","Wins eight Ballon d’Or awards, a record, and many league and Champions League titles."],
+  ["2021–2022","Wins the Copa América, then the 2022 World Cup in Qatar."],
+  ["Now","Plays for Inter Miami in the United States."]]},
+ {n:"Cristiano Ronaldo", r:"Portugal · Forward", t:[
+  ["1985","Born in Funchal, Madeira. Joins the Sporting CP academy as a boy."],
+  ["2003","Signs for Manchester United at 18."],
+  ["2008","Wins his first Ballon d’Or and the Champions League."],
+  ["2009–2018","At Real Madrid he wins four Champions League titles and becomes the club’s top scorer."],
+  ["2016","Captains Portugal to victory at Euro 2016."],
+  ["2018–2022","Plays for Juventus, then returns to Manchester United."],
+  ["Now","Plays for Al Nassr in Saudi Arabia and is the top scorer in men’s international football."]]},
+ {n:"Pelé", r:"Brazil · Forward", t:[
+  ["1940","Born Edson Arantes do Nascimento in Três Corações, Brazil."],
+  ["1956","Joins Santos at 15 and starts scoring immediately."],
+  ["1958","Wins the World Cup at 17, scoring twice in the final."],
+  ["1962","Wins his second World Cup with Brazil."],
+  ["1970","Wins his third World Cup, the only player to do so."],
+  ["1975–1977","Plays for the New York Cosmos and helps spread football in the United States."],
+  ["2022","Dies in December at the age of 82."]]},
+ {n:"Diego Maradona", r:"Argentina · Attacking midfielder", t:[
+  ["1960","Born in Lanús and grows up in the poor neighbourhood of Villa Fiorito."],
+  ["1976","Makes his debut for Argentinos Juniors at 15."],
+  ["1982","Moves to Barcelona after the World Cup in Spain."],
+  ["1984","Joins Napoli and wins two Serie A titles (1987 and 1990)."],
+  ["1986","Captains Argentina to the World Cup, with the “Hand of God” and the solo goal against England."],
+  ["1990","Leads Argentina to the final, which they lose to West Germany."],
+  ["2020","Dies in November at the age of 60."]]},
+ {n:"Ronaldinho", r:"Brazil · Attacking midfielder", t:[
+  ["1980","Born in Porto Alegre, Brazil. Learns the game on futsal and beach pitches."],
+  ["1998","Makes his debut for Grêmio."],
+  ["2002","Wins the World Cup with Brazil."],
+  ["2003","Joins Barcelona and brings the club back to the top."],
+  ["2005–2006","Wins the Ballon d’Or and the Champions League."],
+  ["2018","Retires from professional football."]]},
+ {n:"Zinedine Zidane", r:"France · Midfielder", t:[
+  ["1972","Born in Marseille, to a family from Algeria."],
+  ["1992","Makes his professional debut at Cannes."],
+  ["1996","Signs for Juventus after a spell at Bordeaux."],
+  ["1998","Scores twice in the World Cup final and wins the Ballon d’Or."],
+  ["2000–2001","Wins Euro 2000, then joins Real Madrid."],
+  ["2016–2018","Coaches Real Madrid to three Champions League titles in a row."]]},
+ {n:"Luka Modrić", r:"Croatia · Midfielder", t:[
+  ["1985","Born in Zadar. His family becomes refugees during the war in Croatia."],
+  ["2003","Joins Dinamo Zagreb."],
+  ["2008","Signs for Tottenham Hotspur."],
+  ["2012","Moves to Real Madrid and wins many trophies, including the Champions League."],
+  ["2018","Leads Croatia to the World Cup final and wins the Ballon d’Or."],
+  ["2022","Helps Croatia finish third at the World Cup."],
+  ["2025","Joins AC Milan."]]},
+ {n:"Mohamed Salah", r:"Egypt · Forward", t:[
+  ["1992","Born in Nagrig, a village in Egypt."],
+  ["2012","Moves to Switzerland to play for Basel."],
+  ["2014","Joins Chelsea, then plays for Fiorentina and Roma."],
+  ["2017","Signs for Liverpool and becomes one of the league’s top scorers."],
+  ["2019–2020","Wins the Champions League and the Premier League with Liverpool."],
+  ["Now","Still plays for Liverpool and is Egypt’s biggest star."]]},
+ {n:"Kylian Mbappé", r:"France · Forward", t:[
+  ["1998","Born in Paris and grows up in Bondy."],
+  ["2015","Makes his debut for Monaco at 16."],
+  ["2017","Joins Paris Saint-Germain."],
+  ["2018","Wins the World Cup with France at 19."],
+  ["2022","Scores a hat-trick in the World Cup final, which France lose on penalties."],
+  ["2024","Signs for Real Madrid."],
+  ["Now","Plays for Real Madrid and captains France."]]},
+ {n:"Erling Haaland", r:"Norway · Striker", t:[
+  ["2000","Born in Leeds, England, and raised in Norway."],
+  ["2017","Starts his professional career at Molde."],
+  ["2019","Joins Red Bull Salzburg and scores freely in Europe."],
+  ["2020","Moves to Borussia Dortmund."],
+  ["2022","Joins Manchester City and scores a record 36 Premier League goals in his first season."],
+  ["2023","Wins the treble with City: league, FA Cup and Champions League."],
+  ["Now","Still leads City’s attack."]]}
+];
+var pg=document.getElementById("pgrid"),dlg=document.getElementById("pdlg"),tl=document.getElementById("ptl");
+function grp(parent,title){var w=document.createElement("div"),h=document.createElement("h3");h.className="fh";h.textContent=title;w.appendChild(h);parent.appendChild(w);return w}
+var gA=grp(pg,"Current stars"),gB=grp(pg,"Legends"),OLD={"Pelé":1,"Diego Maradona":1,"Ronaldinho":1,"Zinedine Zidane":1};
+PLAYERS.forEach(function(p){
+  var b=document.createElement("div");b.className="match row";b.tabIndex=0;b.setAttribute("role","button");
+  b.innerHTML="<strong><i class='av'></i><em></em></strong><span></span><span class='go'>View story</span>";
+  var w=p.n.split(" "),ini=(w.length>1?w[0][0]+w[w.length-1][0]:p.n.slice(0,2)).toUpperCase();
+  b.querySelector(".av").textContent=ini;b.querySelector("em").textContent=p.n;b.children[1].textContent=p.r;
+  b.addEventListener("click",function(){
+    document.getElementById("pname").textContent=p.n;
+    document.getElementById("prole").textContent=p.r;
+    tl.innerHTML="";
+    p.t.forEach(function(e,k){
+      var li=document.createElement("li");li.style.setProperty("--i",k);
+      var y=document.createElement("b");y.textContent=e[0];
+      var s=document.createElement("span");s.textContent=e[1];
+      li.appendChild(y);li.appendChild(s);tl.appendChild(li);
+    });
+    dlg.showModal();dlg.scrollTop=0;
+  });
+  (OLD[p.n]?gB:gA).appendChild(b);
+  b.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();b.click()}});
+});
+document.getElementById("pclose").addEventListener("click",function(){dlg.close()});
+dlg.addEventListener("click",function(e){if(e.target===dlg)dlg.close()});
+// ---- Unlock ----
+var wrap=document.getElementById("lockwrap"),KEY="fulltime_unlocked";
+function lock(on){wrap.classList.toggle("locked",on)}
+var ok=false;try{ok=localStorage.getItem(KEY)==="1"}catch(e){}
+lock(!ok);
+document.getElementById("go").addEventListener("click",function(){
+  var v=document.getElementById("code").value.trim().toUpperCase();
+  if(v===ACCESS_CODE){lock(false);try{localStorage.setItem(KEY,"1")}catch(e){}}
+  else document.getElementById("err").textContent="That code isn’t right. Check it and try again.";
+});
+</script>
+</body>
+</html>
